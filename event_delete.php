@@ -46,12 +46,12 @@ function event_delete()
 			$event = new PhpcEvent($phpcdb->get_event_by_eid($eid));
 			$list->add(tag('li', "$eid: ".$event->get_subject()));
 		}
-		$html->add(tag('div', __('Confirm you want to delete:')));
+		$html->add(tag('div', __('Confirma que desea eliminar el evento:')));
 		$html->add($list);
-		$html->add(" [ ", create_action_link(__('Confirm'),
+		$html->add(" [ ", create_action_link(__('Aceptar'),
 					"event_delete", array("eid" => $eids,
 						"confirm" => "1")), " ] ");
-		$html->add(" [ ", create_action_link(__('Deny'),
+		$html->add(" [ ", create_action_link(__('Cancelar'),
 					"display_month"), " ] ");
 		return $html;
 	}
@@ -75,9 +75,9 @@ function event_delete()
 
 	if(sizeof($removed_events) > 0) {
 		if(sizeof($removed_events) == 1)
-			$text = __("Removed event");
+			$text = __("Evento eliminado");
 		else
-			$text = __("Removed events");
+			$text = __("Eventos eliminados");
 		$text .= ': ' . implode(', ', $removed_events);
 		$html->add(tag('div', $text));
 	}

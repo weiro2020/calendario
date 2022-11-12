@@ -45,76 +45,76 @@ function display_form() {
 	$hour24 = $phpc_cal->hours_24;
 	$date_format = $phpc_cal->date_format;
 	$form = new Form($phpc_script, __('Event Form'));
-	$form->add_part(new FormFreeQuestion('subject', __('Subject'),
+	$form->add_part(new FormFreeQuestion('subject', __('Titulo'),
 				false, $phpc_cal->subject_max, true));
 	$form->add_part(new FormLongFreeQuestion('description',
-				__('Description')));
+				__('Descripción')));
 
-	$when_group = new FormGroup(__('When'), 'phpc-when');
+	$when_group = new FormGroup(__('Cuando'), 'phpc-when');
 	if(isset($vars['eid'])) {
 		$when_group->add_part(new FormCheckBoxQuestion('phpc-modify',
 					false,
-					__('Change the event date and time')));
+					__('Cambie la fecha del evento')));
 	}
 	$when_group->add_part(new FormDateTimeQuestion('start',
-				__('From'), $hour24, $date_format));
-	$when_group->add_part(new FormDateTimeQuestion('end', __('To'),
+				__('Desde'), $hour24, $date_format));
+	$when_group->add_part(new FormDateTimeQuestion('end', __('Hasta'),
 				$hour24, $date_format));
 
-	$time_type = new FormDropDownQuestion('time-type', __('Time Type'));
+	$time_type = new FormDropDownQuestion('time-type', __('Duración'));
 	$time_type->add_option('normal', __('Normal'));
-	$time_type->add_option('full', __('Full Day'));
-	$time_type->add_option('tba', __('To Be Announced'));
+	$time_type->add_option('full', __('Todo el día'));
+	//$time_type->add_option('tba', __('To Be Announced'));
 
 	$when_group->add_part($time_type);
 
 	$form->add_part($when_group);
 
-	$repeat_type = new FormDropdownQuestion('repeats', __('Repeats'),
+	$repeat_type = new FormDropdownQuestion('repeats', __('Repetir'),
 			array(), true, 'never');
-	$repeat_type->add_option('never', __('Never'));
+	$repeat_type->add_option('never', __('Nunca'));
 	$daily_group = new FormGroup();
-	$repeat_type->add_option('daily', __('Daily'), NULL, $daily_group);
+	$repeat_type->add_option('daily', __('Diariamente'), NULL, $daily_group);
 	$weekly_group = new FormGroup();
-	$repeat_type->add_option('weekly', __('Weekly'), NULL, $weekly_group);
+	$repeat_type->add_option('weekly', __('Semanalmente'), NULL, $weekly_group);
 	$monthly_group = new FormGroup();
-	$repeat_type->add_option('monthly', __('Monthly'), NULL, $monthly_group);
+	$repeat_type->add_option('monthly', __('Mensualmente'), NULL, $monthly_group);
 	$yearly_group = new FormGroup();
-	$repeat_type->add_option('yearly', __('Yearly'), NULL, $yearly_group);
+	$repeat_type->add_option('yearly', __('Anualmente'), NULL, $yearly_group);
 
-	$every_day = new FormDropdownQuestion('every-day', __('Every'),
-			__('Repeat every how many days?'));
+	$every_day = new FormDropdownQuestion('every-day', __('Frecuencia'),
+			__('¿Repetir durante cuantos días?'));
 	$every_day->add_options(create_sequence(1, 30));
 	$daily_group->add_part($every_day);
-	$daily_group->add_part(new FormDateQuestion('daily-until', __('Until'),
+	$daily_group->add_part(new FormDateQuestion('daily-until', __('Hasta'),
 				$date_format));
 
-	$every_week = new FormDropdownQuestion('every-week', __('Every'),
-			__('Repeat every how many weeks?'));
+	$every_week = new FormDropdownQuestion('every-week', __('Frecuencia'),
+			__('¿Repetir durante cuantas semanas?'));
 	$every_week->add_options(create_sequence(1, 30));
 	$weekly_group->add_part($every_week);
 	$weekly_group->add_part(new FormDateQuestion('weekly-until',
-				__('Until'), $date_format));
+				__('Hasta'), $date_format));
 
-	$every_month = new FormDropdownQuestion('every-month', __('Every'),
-			__('Repeat every how many months?'));
+	$every_month = new FormDropdownQuestion('every-month', __('Frecuencia'),
+			__('¿Repetir durante cuantos meses?'));
 	$every_month->add_options(create_sequence(1, 30));
 	$monthly_group->add_part($every_month);
 	$monthly_group->add_part(new FormDateQuestion('monthly-until',
-				__('Until'), $date_format));
+				__('Hasta'), $date_format));
 
-	$every_year = new FormDropdownQuestion('every-year', __('Every'),
-			__('Repeat every how many years?'));
+	$every_year = new FormDropdownQuestion('every-year', __('Frecuencia'),
+			__('¿Repetir durante cuantos años?'));
 	$every_year->add_options(create_sequence(1, 30));
 	$yearly_group->add_part($every_year);
 	$yearly_group->add_part(new FormDateQuestion('yearly-until',
-				__('Until'), $date_format));
+				__('Hasta'), $date_format));
 
 	$when_group->add_part($repeat_type);
 
-	if($phpc_cal->can_create_readonly())
-		$form->add_part(new FormCheckBoxQuestion('readonly', false,
-					__('Read-only')));
+	//if($phpc_cal->can_create_readonly())
+	//	$form->add_part(new FormCheckBoxQuestion('readonly', false,
+	//				__('')));
 
 	$categories = new FormDropdownQuestion('catid', __('Category'));
 	$categories->add_option('', __('None'));
@@ -133,7 +133,7 @@ function display_form() {
 	$form->add_hidden('action', 'event_form');
 	$form->add_hidden('submit_form', 'submit_form');
 
-	$form->add_part(new FormSubmitButton(__("Submit Event")));
+	$form->add_part(new FormSubmitButton(__("Cargar Evento")));
 
 	if(isset($vars['eid'])) {
 		$form->add_hidden('eid', $vars['eid']);
@@ -439,9 +439,9 @@ function process_form()
 
 	if($eid != 0) {
 		if($modify)
-			$message = __("Modified event: ");
+			$message = __("Evento modificado: ");
 		else
-			$message = __("Created event: ");
+			$message = __("Evento creado: ");
 
 		return message_redirect(tag('', $message,
 					create_event_link($eid, 'display_event',

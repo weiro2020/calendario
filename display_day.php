@@ -54,7 +54,7 @@ function display_day()
 							create_hidden('day', $day),
 							create_hidden('month', $month),
 							create_hidden('year', $year),
-							create_submit(__('Delete Selected'))))));
+							create_submit(__('Eliminar Seleccionados'))))));
 	}
 
 	$html_body = tag('tbody');
@@ -85,7 +85,7 @@ function display_day()
 		if($event->can_modify()) {
 			$html_subject->add(" (");
 			$html_subject->add(create_event_link(
-						__('Modify'), 'event_form',
+						__('Modificar'), 'event_form',
 						$eid));
 			$html_subject->add(')');
 		}

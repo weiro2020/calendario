@@ -359,10 +359,10 @@ class FormDateTimeQuestion extends FormAtomicQuestion
                 soft_error("Unrecognized date format.");
         }
 
-        return array(tag('label', attrs("for=\"{$this->qid}-date\""), __("Date") . " ($date_string): "),
+        return array(tag('label', attrs("for=\"{$this->qid}-date\""), __("Fecha") . " ($date_string): "),
             form_date_input($this->qid, $defaults,
                 $dateFormat),
-            " ", tag('label', attrs("for=\"{$this->qid}-time\""), __('Time') . ": "),
+            " ", tag('label', attrs("for=\"{$this->qid}-time\""), __('Hora') . ": "),
             form_time_input($this->qid, $defaults,
                 $this->hour24));
     }

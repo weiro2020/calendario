@@ -587,21 +587,21 @@ function userMenu()
 {
 	global $action, $phpc_user;
 
-//	$welcome = __('Welcome') . '&nbsp;' . $phpc_user->username;
+	$welcome = __('Bienvenido') . '&nbsp;' . $phpc_user->username;
 	$span = tag('span');
 
 	$html = tag('div', attributes('class="phpc-logged ui-widget-content"'),
 			$welcome, $span);
 
 	if($action != 'settings')
-		menu_item_append($span, __('Settings'), 'settings');
+		menu_item_append($span, __(''), 'settings');
 
 	if(is_user()) {
-		menu_item_append($span, __(''), 'logout',
+		menu_item_append($span, __('Salir'), 'logout',
 				array('lasturl' =>
 					phpc_html_escape(rawurlencode($_SERVER['QUERY_STRING']))));
 	} else {
-		menu_item_append($span, __(''), 'login',
+		menu_item_append($span, __('Ingresar'), 'login',
 				array('lasturl' =>
 					phpc_html_escape(rawurlencode($_SERVER['QUERY_STRING']))));
 	}
@@ -622,7 +622,7 @@ function navbar()
 	$args = array('year' => $year, 'month' => $month, 'day' => $day);
 
 	if($phpc_cal->can_write() && $action != 'add') {
-		menu_item_append($html, __('Add Event'), 'event_form', $args);
+		menu_item_append($html, __('Agregar evento'), 'event_form', $args);
 	}
 
 	if($action != 'search') {
